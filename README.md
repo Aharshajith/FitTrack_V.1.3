@@ -1,7 +1,3 @@
-# Movement guide update
-
-**Update (November 2026):** All 16 exercise records now have offline AI-generated **3D-looking** human movement loops. These are pose-transition clips, **not** rigged 3D motion capture. See `README_3D_STYLE.md` for limits and testing.
-
 # FitTrack — Offline Fitness and Workout Tracker
 
 An individual React Native + Expo project created for **ICA 03**. FitTrack lets users create workout plans, explore exercises, record sessions, monitor progress, and manage their personal fitness profile without an internet connection.
@@ -95,6 +91,3 @@ The smoke test checks seed deduplication, migration of older databases, foreign 
 - The new code was syntax-checked and the SQL flow was smoke-tested in isolation, but Expo Go / a real phone was not available in the review environment.
 
 
-## Human-shaped movement videos
-
-See `README_MOVEMENT_GUIDES.md` for instructions and limitations. Each exercise detail has a 3.2-second silent looping **AI-generated 3D-style human pose preview** packaged offline. `npm install` installs `expo-video` along with the other dependencies.
