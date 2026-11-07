@@ -68,26 +68,8 @@ The smoke test checks seed deduplication, migration of older databases, foreign 
 - [ ] Turn off internet and repeat reading/writing local data.
 - [ ] Check small-screen navigation, long lists, keyboard and scrolling.
 
-## ICA 03 requirements map
-
-| ICA requirement | FitTrack implementation |
-| --- | --- |
-| Individual React Native project | Expo / React Native source |
-| Unique project title | **Confirm FitTrack is not already registered** in the title spreadsheet |
-| At least 5 screens | 6 screens |
-| Navigation | React Navigation bottom tabs, cross-screen actions |
-| Own local dataset | 16 bundled exercise entries stored in SQLite |
-| Dynamic locally stored data | SQL queries used in all six screens |
-| Search, filtering, detailed views | Explore library + workout history details |
-| Offline support, no public APIs | Device-local SQLite only |
-| GitHub history | Student should create and push regular personal commits |
-
-**Assignment dates:** Register a unique title by **4 November 2026**. Project deadline **15 November 2026**.
-
 ## Important notes
 
 - Do not upgrade dependencies blindly. This code is configured for **Expo SDK 58**.
 - Expo SQLite's `withExclusiveTransactionAsync` is supported on mobile platforms but not web. The assignment targets a mobile app, so testing on Android/iOS is recommended.
 - The new code was syntax-checked and the SQL flow was smoke-tested in isolation, but Expo Go / a real phone was not available in the review environment.
-
-

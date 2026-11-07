@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import colors from '../theme/colors';
@@ -41,9 +40,7 @@ export default function DashboardWeeklyChart({ days }) {
                     styles.bar,
                     {
                       height,
-                      backgroundColor: day.today
-                        ? colors.primary
-                        : '#67946C',
+                      backgroundColor: day.today ? colors.primary: '#67946C',
                       opacity: day.count ? 1 : 0,
                     },
                   ]}

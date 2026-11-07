@@ -107,11 +107,21 @@ export default function ExerciseMovementPlayer({ source, exerciseName, mediaType
           <Ionicons name={isPlaying ? 'pause' : 'play'} size={17} color={colors.primaryDark} />
           <Text style={styles.primaryControlText}>{isPlaying ? 'Pause' : 'Play'}</Text>
         </Pressable>
-        <Pressable style={styles.control} onPress={replay} accessibilityRole="button" accessibilityLabel={`Replay ${exerciseName}`}>
+        <Pressable 
+          style={styles.control} 
+          onPress={replay} 
+          accessibilityRole="button" 
+          accessibilityLabel={`Replay ${exerciseName}`}
+        >
           <Ionicons name="refresh-outline" color={colors.text} size={17} />
           <Text style={styles.controlText}>Replay</Text>
         </Pressable>
-        <Pressable style={styles.control} onPress={fullscreen} accessibilityRole="button" accessibilityLabel={`Fullscreen ${exerciseName} video`}>
+        <Pressable 
+          style={styles.control} 
+          onPress={fullscreen} 
+          accessibilityRole="button" 
+          accessibilityLabel={`Fullscreen ${exerciseName} video`}
+        >
           <Ionicons name="expand-outline" color={colors.text} size={17} />
           <Text style={styles.controlText}>Full screen</Text>
         </Pressable>
@@ -124,27 +134,146 @@ export default function ExerciseMovementPlayer({ source, exerciseName, mediaType
 }
 
 const styles = StyleSheet.create({
-  section: { marginTop: 23 },
-  headingRow: { flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 12 },
-  headingCopy: { flex: 1 },
-  title: { color: colors.text, fontSize: 17, fontWeight: '900' },
-  subtitle: { color: colors.muted, fontSize: 12, marginTop: 4 },
-  offlineBadge: { flexDirection: 'row', gap: 6, alignItems: 'center', paddingVertical: 7, paddingHorizontal: 10, backgroundColor: colors.elevated, borderWidth: 1, borderColor: colors.border, borderRadius: 999 },
-  offlineText: { color: colors.primary, fontSize: 10, fontWeight: '900', letterSpacing: 0.6 },
-  frame: { width: '100%', aspectRatio: 16 / 9, borderRadius: 18, overflow: 'hidden', backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border },
-  video: { width: '100%', height: '100%', backgroundColor: colors.background },
-  messageOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center', gap: 8, padding: 15 },
-  error: { color: colors.text, textAlign: 'center', fontSize: 12 },
-  progressRow: { flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 15 },
-  time: { color: colors.muted, fontSize: 12, fontVariant: ['tabular-nums'] },
-  trackTouch: { flex: 1, height: 25, justifyContent: 'center' },
-  track: { backgroundColor: colors.border, height: 5, borderRadius: 3, position: 'relative' },
-  fill: { backgroundColor: colors.primary, height: 5, borderRadius: 3 },
-  dot: { position: 'absolute', top: -5, width: 15, height: 15, marginLeft: -7, borderRadius: 8, backgroundColor: colors.primary, borderWidth: 2, borderColor: colors.surface },
-  controls: { flexDirection: 'row', marginTop: 10, gap: 7 },
-  control: { flex: 1, minHeight: 40, paddingHorizontal: 5, borderRadius: 13, backgroundColor: colors.elevated, borderWidth: 1, borderColor: colors.border, flexDirection: 'row', gap: 6, justifyContent: 'center', alignItems: 'center' },
-  primaryControl: { backgroundColor: colors.primary, borderColor: colors.primary },
-  primaryControlText: { color: colors.primaryDark, fontSize: 12, fontWeight: '900' },
-  controlText: { color: colors.text, fontSize: 11, fontWeight: '800' },
-  note: { fontSize: 11, lineHeight: 18, color: colors.muted, marginTop: 13 },
+  section: { 
+    marginTop: 23 
+  },
+  headingRow: { 
+    flexDirection: 'row', 
+    gap: 10, 
+    alignItems: 'center', 
+    marginBottom: 12 
+  },
+  headingCopy: { 
+    flex: 1 
+  },
+  title: { 
+    color: colors.text, 
+    fontSize: 17, 
+    fontWeight: '900' 
+  },
+  subtitle: { 
+    color: colors.muted, 
+    fontSize: 12, 
+    marginTop: 4 
+  },
+  offlineBadge: { 
+    flexDirection: 'row', 
+    gap: 6, 
+    alignItems: 'center', 
+    paddingVertical: 7, 
+    paddingHorizontal: 10, 
+    backgroundColor: colors.elevated, 
+    borderWidth: 1, 
+    borderColor: colors.border, 
+    borderRadius: 999 
+  },
+  offlineText: { 
+    color: colors.primary, 
+    fontSize: 10, 
+    fontWeight: '900', 
+    letterSpacing: 0.6 
+  },
+  frame: { 
+    width: '100%', 
+    aspectRatio: 16 / 9, 
+    borderRadius: 18, 
+    overflow: 'hidden', 
+    backgroundColor: colors.background, 
+    borderWidth: 1, 
+    borderColor: colors.border 
+  },
+  video: { 
+    width: '100%', 
+    height: '100%', 
+    backgroundColor: colors.background 
+  },
+  messageOverlay: { 
+    ...StyleSheet.absoluteFillObject, 
+    backgroundColor: colors.surface, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    gap: 8, 
+    padding: 15 
+  },
+  error: { 
+    color: colors.text, 
+    textAlign: 'center', 
+    fontSize: 12 
+  },
+  progressRow: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    gap: 9, 
+    marginTop: 15 
+  },
+  time: { 
+    color: colors.muted, 
+    fontSize: 12, 
+    fontVariant: ['tabular-nums'] 
+  },
+  trackTouch: { 
+    flex: 1, 
+    height: 25, 
+    justifyContent: 'center' 
+  },
+  track: { 
+    backgroundColor: colors.border, 
+    height: 5, 
+    borderRadius: 3, 
+    position: 'relative' 
+  },
+  fill: { 
+    backgroundColor: colors.primary, 
+    height: 5, 
+    borderRadius: 3 
+  },
+  dot: { 
+    position: 'absolute', 
+    top: -5, 
+    width: 15, 
+    height: 15, 
+    marginLeft: -7, 
+    borderRadius: 8, 
+    backgroundColor: colors.primary, 
+    borderWidth: 2, 
+    borderColor: colors.surface 
+  },
+  controls: { 
+    flexDirection: 'row', 
+    marginTop: 10, 
+    gap: 7 
+  },
+  control: { 
+    flex: 1, 
+    minHeight: 40, 
+    paddingHorizontal: 5, 
+    borderRadius: 13, 
+    backgroundColor: colors.elevated, 
+    borderWidth: 1, 
+    borderColor: colors.border, 
+    flexDirection: 'row', 
+    gap: 6, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  },
+  primaryControl: { 
+    backgroundColor: colors.primary, 
+    borderColor: colors.primary 
+  },
+  primaryControlText: { 
+    color: colors.primaryDark, 
+    fontSize: 12, 
+    fontWeight: '900' 
+  },
+  controlText: { 
+    color: colors.text, 
+    fontSize: 11, 
+    fontWeight: '800' 
+  },
+  note: { 
+    fontSize: 11, 
+    lineHeight: 18, 
+    color: colors.muted, 
+    marginTop: 13 
+  },
 });
