@@ -3,10 +3,10 @@ import { View, Text, TextInput, Pressable, StyleSheet, Modal, ScrollView,} from 
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/ScreenLayout';
-import { Pill, EmptyState, ActionButton, shared, } from '../components/UI';
+import { Pill, EmptyState, ActionButton } from '../components/UI';
 import ExerciseMovementPlayer from '../components/ExerciseMovementPlayer';
 import { getDatabase } from '../database/database';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 const categories = ['All', 'Strength', 'Cardio', 'Core'];
 
@@ -37,6 +37,7 @@ const movementVideos = {
 };
 
 export default function ExerciseLibraryScreen() {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const [exercises, setExercises] = useState([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
@@ -224,7 +225,7 @@ export default function ExerciseLibraryScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   searchWrap: {
     ...shared.input,
     flexDirection: 'row',

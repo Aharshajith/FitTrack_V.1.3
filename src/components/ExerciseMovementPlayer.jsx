@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useEvent } from 'expo';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import { Ionicons } from '@expo/vector-icons';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
@@ -14,6 +14,7 @@ function formatTime(seconds) {
 // The media source is an offline static require() result, not an API URL.
 // This component is mounted once for the selected exercise, then unmounted on modal close.
 export default function ExerciseMovementPlayer({ source, exerciseName, mediaType = 'illustrated' }) {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const videoRef = useRef(null);
   const [trackWidth, setTrackWidth] = useState(0);
 
@@ -133,7 +134,7 @@ export default function ExerciseMovementPlayer({ source, exerciseName, mediaType
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   section: { 
     marginTop: 23 
   },

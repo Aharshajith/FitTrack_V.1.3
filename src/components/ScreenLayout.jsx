@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 export default function ScreenLayout({ title, subtitle, children, scrollTopKey }) {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const scrollRef = useRef(null);
   useEffect(() => {
     if (scrollTopKey !== undefined) scrollRef.current?.scrollTo({ y: 0, animated: true });
@@ -32,7 +33,7 @@ export default function ScreenLayout({ title, subtitle, children, scrollTopKey }
   </SafeAreaView>;
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   root: { 
     flex: 1, 
     backgroundColor: colors.background 

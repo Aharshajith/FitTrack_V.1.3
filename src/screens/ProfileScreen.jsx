@@ -3,18 +3,15 @@ import { View, Text, TextInput, Alert, StyleSheet, Pressable,} from 'react-nativ
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/ScreenLayout';
-import { SectionTitle, ActionButton, shared } from '../components/UI';
+import { SectionTitle, ActionButton } from '../components/UI';
 import { getDatabase, withDatabaseTransaction,} from '../database/database';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
+import AppearanceSettings from '../components/AppearanceSettings';
 
-const goals = [
-  'Build Muscle',
-  'Lose Weight',
-  'Improve Fitness',
-  'Maintain Weight',
-];
+const goals = [ 'Build Muscle','Lose Weight','Improve Fitness','Maintain Weight' ];
 
 export default function ProfileScreen() {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
@@ -210,7 +207,7 @@ export default function ProfileScreen() {
       )}
 
       {!!loadError && (
-        <ActionButton secondarytitle="Retry loading profile" onPress={load}/>
+        <ActionButton secondary title="Retry loading profile" onPress={load}/>
       )}
 
       <View style={styles.header}>
@@ -232,6 +229,7 @@ export default function ProfileScreen() {
         <Ionicons name="shield-checkmark-outline" color={colors.primary} size={24}/>
       </View>
 
+      <AppearanceSettings />
       <SectionTitle>Personal details</SectionTitle>
 
       <View style={styles.form}>
@@ -296,7 +294,7 @@ export default function ProfileScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   header: {
     ...shared.card,
     flexDirection: 'row',

@@ -3,15 +3,13 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 import DashboardScreen from '../screens/DashboardScreen';
 import WorkoutPlansScreen from '../screens/WorkoutPlansScreen';
 import ExerciseLibraryScreen from '../screens/ExerciseLibraryScreen';
 import WorkoutSessionScreen from '../screens/WorkoutSessionScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 const Tab = createBottomTabNavigator();
 
@@ -62,6 +60,7 @@ const FALLBACK_TAB = {
 };
 
 export default function AppNavigator() {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const insets = useSafeAreaInsets();
   const bottomPadding = Math.max(insets.bottom, 8);
 
@@ -144,7 +143,7 @@ export default function AppNavigator() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   tabBar: {
     backgroundColor: colors.surface,
     borderTopWidth: 1,

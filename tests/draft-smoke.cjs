@@ -58,6 +58,14 @@ function mount(file, name, props, db, returned) {
   let focus;
 
   const context = {
+    createStyles: () => ({}),
+
+    useThemeStyles: () => ({
+      colors: {},
+      styles: {},
+      shared: {},
+    }),
+    
     console,
     Number,
     String,

@@ -1,20 +1,14 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {
-  View, Text, TextInput, Pressable, Alert, StyleSheet,
-} from 'react-native';
+import { View, Text, TextInput, Pressable, Alert, StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-
 import ScreenLayout from '../components/ScreenLayout';
-import {
-  ActionButton, EmptyState, SectionTitle, shared,
-} from '../components/UI';
-import {
-  getDatabase, withDatabaseTransaction,
-} from '../database/database';
-import colors from '../theme/colors';
+import { ActionButton, EmptyState, SectionTitle } from '../components/UI';
+import { getDatabase, withDatabaseTransaction } from '../database/database';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 export default function WorkoutPlansScreen({ navigation }) {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const [plans, setPlans] = useState([]);
   const [library, setLibrary] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -593,7 +587,7 @@ export default function WorkoutPlansScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   form: { 
     ...shared.card, 
     marginTop: 12 

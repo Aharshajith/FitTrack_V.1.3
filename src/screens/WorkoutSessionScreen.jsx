@@ -3,12 +3,13 @@ import { View, Text, TextInput, Pressable, Alert, StyleSheet, Modal, ScrollView,
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/ScreenLayout';
-import { SectionTitle, EmptyState, ActionButton, shared,} from '../components/UI';
+import { SectionTitle, EmptyState, ActionButton } from '../components/UI';
 import { getDatabase, withDatabaseTransaction,} from '../database/database';
 import { formatRecentDate } from '../utils/dashboardMetrics';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 export default function WorkoutSessionScreen({ navigation, route }) {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const [plans, setPlans] = useState([]);
   const [history, setHistory] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -526,7 +527,7 @@ export default function WorkoutSessionScreen({ navigation, route }) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   selectCard: {
     ...shared.card,
     flexDirection: 'row',

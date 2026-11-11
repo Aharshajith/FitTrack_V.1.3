@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 // Displays completed workout sessions per weekday.
 export default function DashboardWeeklyChart({ days }) {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const maximum = Math.max(
     1,
     ...days.map((day) => day.count)
@@ -74,7 +75,7 @@ export default function DashboardWeeklyChart({ days }) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   chart: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   value: {
-    color: '#708477',
+    color: colors.muted,
     fontSize: 11,
     fontWeight: '800',
     marginBottom: 7,
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     minWidth: 18,
     height: 104,
     justifyContent: 'flex-end',
-    backgroundColor: '#25392A',
+    backgroundColor: colors.elevated,
     borderRadius: 10,
     overflow: 'hidden',
   },

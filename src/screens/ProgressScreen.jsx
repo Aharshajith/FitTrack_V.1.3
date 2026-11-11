@@ -3,12 +3,13 @@ import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/ScreenLayout';
-import { SectionTitle, StatTile, EmptyState, ActionButton, shared } from '../components/UI';
+import { SectionTitle, StatTile, EmptyState, ActionButton } from '../components/UI';
 import { getDatabase, withDatabaseTransaction } from '../database/database';
 import { parseSessionDate } from '../utils/dashboardMetrics';
-import colors from '../theme/colors';
+import { useThemeStyles } from '../theme/ThemeProvider';
 
 export default function ProgressScreen() {
+  const { colors, styles, shared } = useThemeStyles(createStyles);
   const [stats, setStats] = useState({ workouts: 0, minutes: 0, volume: 0, average: 0 });
   const [history, setHistory] = useState([]);
   const [weight, setWeight] = useState('');
@@ -232,7 +233,7 @@ export default function ProgressScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors, shared) => StyleSheet.create({
   grid: { 
     flexDirection: 'row', 
     flexWrap: 'wrap', 
