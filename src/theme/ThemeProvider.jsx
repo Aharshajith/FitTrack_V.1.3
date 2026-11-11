@@ -1,5 +1,19 @@
-import React, {createContext,useCallback,useContext,useEffect,useMemo,useRef,useState } from 'react';
-import { Appearance, StyleSheet, useColorScheme,} from 'react-native';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
+import {
+  Appearance,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
+
 import Storage from 'expo-sqlite/kv-store';
 import { darkColors, lightColors } from './colors';
 
@@ -34,7 +48,9 @@ export function ThemeProvider({ children }) {
         }
       })
       .finally(() => {
-        if (active) setReady(true);
+        if (active) {
+          setReady(true);
+        }
       });
 
     return () => {
@@ -43,15 +59,17 @@ export function ThemeProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (ready) {
-      Appearance.setColorScheme(
-        mode === 'system' ? null : mode
-      );
-    }
+    if (!ready) return;
+
+    Appearance.setColorScheme(
+      mode === 'system' ? 'auto' : mode
+    );
   }, [mode, ready]);
 
   useEffect(() => {
-    return () => Appearance.setColorScheme(null);
+    return () => {
+      Appearance.setColorScheme('auto');
+    };
   }, []);
 
   const setThemeMode = useCallback(async (nextMode) => {
@@ -80,12 +98,29 @@ export function ThemeProvider({ children }) {
     }
   }, [ready]);
 
-  const isDark = ( mode === 'system' ? systemScheme : mode ) === 'dark';
+  const isDark = (
+    mode === 'system' ? systemScheme : mode
+  ) === 'dark';
+
   const colors = isDark ? darkColors : lightColors;
+
   const value = useMemo(() => ({
-    colors,isDark,mode,ready,saving,error,setThemeMode
-  }), 
-    [colors,isDark,mode,ready,saving,error,setThemeMode,]);
+    colors,
+    isDark,
+    mode,
+    ready,
+    saving,
+    error,
+    setThemeMode,
+  }), [
+    colors,
+    isDark,
+    mode,
+    ready,
+    saving,
+    error,
+    setThemeMode,
+  ]);
 
   return (
     <ThemeContext.Provider value={value}>
