@@ -1,75 +1,161 @@
-# FitTrack — Offline Fitness and Workout Tracker
+# FitTrack
 
-An individual React Native + Expo project created for **ICA 03**. FitTrack lets users create workout plans, explore exercises, record sessions, monitor progress, and manage their personal fitness profile without an internet connection.
+FitTrack is a mobile fitness tracker built with Expo and React Native for tracking workouts, managing exercise plans, and monitoring personal progress entirely on-device.
 
-## Features
+The app is designed for offline use and keeps workout data, profile details, and body metrics in a local SQLite database so users can train without relying on cloud services.
 
-- **6 connected screens:** Home, Plans, Explore, Log, Progress and Me.
-- **Locally seeded exercise dataset:** 16 curated exercises categorized by training style and difficulty; seeded in SQLite on first launch without duplicate entries on later launches.
-- **Search and filters:** Search exercise names, muscle groups and difficulty; filter by Strength / Cardio / Core.
-- **Detailed exercise information:** Accessible from the Explore screen in a details sheet.
-- **Editable workout plans:** Choose exercises, customize sets and reps, edit or delete plans.
-- **Offline workout log:** Record duration, sets, reps and weight; view individual session details and totals.
-- **Progress tracking:** Workout count, minutes, training volume, average duration and body-weight trends.
-- **Profile management:** Save your details and fitness goal on the device with input validation.
-- **History protection:** Deleting a workout plan will **not** delete completed workout history.
+## Overview
 
-## Requirements
+FitTrack combines a dashboard, a workout planner, exercise library, session logging, progress insights, and profile management into a single mobile-first experience.
 
-- Node.js **22.13 or newer** (Expo SDK 58)
+Key goals of the app:
+
+- Track workout sessions and summarize recent activity
+- Create and edit reusable workout plans
+- Browse a local exercise catalog with difficulty, muscle group, and category filters
+- Log training data including duration, sets, reps, and weight
+- Review weekly and long-term progress without internet access
+- Keep personal fitness information saved on the device
+
+## App features
+
+- Dashboard with greeting, goal summary, recent workouts, and weekly training activity
+- Workout plans screen for creating and editing training routines
+- Exercise library with searchable workout catalog and exercise details
+- Workout logging flow for recording completed sessions
+- Progress screen for weekly trends and training history
+- Profile screen for user details, fitness goal, and body-weight tracking
+- Local SQLite storage with seeded exercise data and no dependency on external APIs
+- Dark/light themed UI with mobile-friendly navigation
+
+## Tech stack
+
+- Expo SDK 58
+- React Native 0.88.1
+- React Navigation
+- Expo SQLite
+- Expo Video
+- React Native Safe Area Context
+
+## Project structure
+
+```text
+FitTrack_V.1.3/
+├── App.js
+├── app.json
+├── index.js
+├── package.json
+├── README.md
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── database/
+│   ├── navigation/
+│   ├── screens/
+│   ├── theme/
+│   └── utils/
+├── tests/
+├── assets/
+└── LICENSE
+```
+
+## Screens
+
+### Home
+The dashboard shows the user’s current training snapshot, including workout count, total minutes, saved goal, and recent sessions.
+
+### Plans
+Users can create and manage workout plans, customize exercises, and keep structured routines ready for training.
+
+### Explore
+The exercise library provides a searchable list of exercises with category, muscle group, and difficulty metadata. Each exercise includes a description and video reference support.
+
+### Log
+The workout log screen is used to record completed workouts and maintain session-level details.
+
+### Progress
+The progress area tracks activity trends, workout history, and body-weight history over time.
+
+### Me
+The profile screen stores personal details and fitness goals.
+
+## Local data model
+
+The app uses SQLite to persist:
+
+- Exercise library data
+- Workout plans
+- Completed workout sessions
+- Body progress entries
+- User profile information
+
+This means the app remains functional offline and stores user data on the device instead of a remote backend.
+
+## Prerequisites
+
+Before running the project, make sure you have:
+
+- Node.js 18+ or newer
 - npm
-- Expo Go on a compatible Android/iOS device, or an Expo-compatible simulator
+- Expo CLI via the project scripts
+- An Android or iOS device for Expo Go, or a simulator/emulator
 
-## Setup on Windows
+## Installation
 
-1. Extract `FitTrack_Improved.zip` to a folder.
-2. Open the `FitTrack` folder in VS Code.
-3. Open a terminal in that folder.
-4. Run:
+From the project root, install dependencies:
 
 ```bash
-npm ci
+npm install
+```
+
+Then start the app:
+
+```bash
 npx expo start --clear
 ```
 
-5. Scan the QR code with Expo Go (phone and laptop normally on the same Wi-Fi). If QR access is blocked, try `npx expo start --tunnel` (network needed for development only).
-6. After the app launches, enable airplane mode to confirm offline behavior. The app's saved local data does not depend on any web service.
+For platform-specific launch:
 
-**Note:** `node_modules`, `.expo` and `.git` are intentionally excluded from the submitted ZIP. `npm ci` restores dependencies from `package-lock.json`. Do not commit `node_modules` to GitHub.
+```bash
+npx expo start --android
+npx expo start --ios
+npx expo start --web
+```
 
-## Local storage
+## Running the app
 
-The app uses `expo-sqlite` (`fittrack.db`). The dataset is automatically created on first run. Profile, plans, session history and weight records are saved locally and persist when the app is closed and reopened. Uninstalling the app or clearing app data can remove local records; there is no cloud backup.
+1. Start Metro with Expo.
+2. Scan the QR code in Expo Go on your mobile device.
+3. If needed, use a development build or simulator for platform testing.
+
+## Scripts
+
+```bash
+npm start
+npm run android
+npm run ios
+npm run web
+npm run test:db
+```
+
+The database smoke test validates the app’s SQLite behavior and checks data integrity patterns used by the fitness tracker.
 
 ## Testing
 
-On Node 22+, run the dependency-free SQLite smoke test:
+To run the project smoke test:
 
 ```bash
 npm run test:db
 ```
 
-The smoke test checks seed deduplication, migration of older databases, foreign keys, workout-history preservation and rollback of failed transactions. **It does not replace device testing.**
+This checks the database’s expected setup and offline data handling basics; it is helpful for validation during development but should be paired with actual mobile testing.
 
-### Manual test checklist (complete on an actual device)
+## Notes
 
-- [ ] First launch: no database error; Explore contains 16 different exercises.
-- [ ] Close and reopen: exercise count stays the same.
-- [ ] Search/filter exercises and open/close the detail sheet.
-- [ ] Create a plan with 2 exercises and custom sets/reps.
-- [ ] Edit that plan and verify the changes in the Log screen.
-- [ ] Start from the plan card; workout Log opens with the chosen plan.
-- [ ] Save a workout and verify it appears in Home, Log and Progress.
-- [ ] Open a workout's detailed history and check recorded values.
-- [ ] Delete the plan; past workout and its records remain in Log.
-- [ ] Save two body-weight measurements and inspect the history chart.
-- [ ] Save your profile, close the app and verify values persist.
-- [ ] Try invalid durations, empty plan names and invalid age/email inputs.
-- [ ] Turn off internet and repeat reading/writing local data.
-- [ ] Check small-screen navigation, long lists, keyboard and scrolling.
+- The app is intended for mobile usage and makes use of device-local storage.
+- Exercise data is pre-seeded and designed to work without an active network connection.
+- The project is optimized for an Expo/React Native workflow and is best validated on a physical device or simulator.
 
-## Important notes
+## License
 
-- Do not upgrade dependencies blindly. This code is configured for **Expo SDK 58**.
-- Expo SQLite's `withExclusiveTransactionAsync` is supported on mobile platforms but not web. The assignment targets a mobile app, so testing on Android/iOS is recommended.
-- The new code was syntax-checked and the SQL flow was smoke-tested in isolation, but Expo Go / a real phone was not available in the review environment.
+This project is distributed under the license included in the repository.
